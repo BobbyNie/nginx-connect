@@ -6,11 +6,8 @@ WORKDIR /tmp
 # 定义 Nginx 版本和 ngx_http_proxy_connect_module 版本
 ARG NGINX_VERSION=1.22.1
 
-# 注册系统以获取有效的订阅
-RUN subscription-manager register --auto-attach
-
 # 安装必要的软件包、下载 Nginx 和 ngx_http_proxy_connect_module 源码
-RUN dnf install -y gcc make unzip ca-certificates curl gnupg2 pcre-devel openssl-devel zlib-devel patch --nobest && \
+RUN dnf install -y gcc make unzip ca-certificates curl gnupg2 pcre-devel openssl-devel zlib-devel patch --nobest --setopt=install_weak_deps=False && \
     curl -fsS -LO https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && \
     curl -fsS -LO https://github.com/chobits/ngx_http_proxy_connect_module/archive/refs/heads/master.zip && \
     tar -zxvf nginx-${NGINX_VERSION}.tar.gz && \
