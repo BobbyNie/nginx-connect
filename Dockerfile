@@ -11,7 +11,7 @@ RUN mkdir -p /var/cache/yum && \
     chmod -R 777 /var/cache/yum
 
 # 安装必要的软件包、下载 Nginx 和 ngx_http_proxy_connect_module 源码
-RUN dnf install -y gcc make unzip ca-certificates curl gnupg2 pcre-devel openssl-devel zlib-devel inetutils-ping telnet && \
+RUN dnf install -y gcc make unzip ca-certificates curl gnupg2 pcre-devel openssl-devel zlib-devel   && \
     curl -fsS -LO https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && \
     curl -fsS -LO https://github.com/chobits/ngx_http_proxy_connect_module/archive/refs/heads/master.zip && \
     tar -zxvf nginx-${NGINX_VERSION}.tar.gz && \
