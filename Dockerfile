@@ -13,7 +13,7 @@ RUN mkdir -p /var/cache/yum && \
 # 安装必要的软件包、下载 Nginx 和 ngx_http_proxy_connect_module 源码
 USER 1001
 
-RUN microdnf install -y build-essential unzip ca-certificates curl gnupg2 libpcre3-dev libssl-dev zlib1g-dev inetutils-ping telnet && \
+RUN microdnf install -y gcc make unzip ca-certificates curl gnupg2 libpcre3-dev libssl-dev zlib1g-dev inetutils-ping telnet && \
     curl -fsS -LO https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && \
     curl -fsS -LO https://github.com/chobits/ngx_http_proxy_connect_module/archive/refs/heads/master.zip && \
     tar -zxvf nginx-${NGINX_VERSION}.tar.gz && \
@@ -24,7 +24,7 @@ RUN microdnf install -y build-essential unzip ca-certificates curl gnupg2 libpcr
     cd /tmp/nginx-${NGINX_VERSION} && \
     ./configure --add-module=/tmp/ngx_http_proxy_connect_module-master && \
     make && make install && \
-    microdnf remove -y build-essential unzip ca-certificates curl gnupg2
+    microdnf remove -y gcc make unzip ca-certificates curl gnupg2
 
 # 清理临时文件
 RUN rm -rf /tmp/*
