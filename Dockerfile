@@ -29,13 +29,6 @@ RUN apt-get update && \
     ./configure --add-module=/tmp/ngx_http_proxy_connect_module-master && \
     make && make install
 
-# 创建 nginx 用户和组（用户 ID 为 1000740000，组 ID 为 0）
-RUN useradd -u 1000740000 -g 0 -d /usr/local/nginx -s /sbin/nologin nginx
-
-# 更改 Nginx 相关目录和文件的所有权
-RUN chown -R nginx:0 /usr/local/nginx && \
-    chmod -R g=u /usr/local/nginx
-
 # 清理临时文件
 RUN rm -rf /tmp/*
 
@@ -45,8 +38,6 @@ ENV PATH="/usr/local/nginx/sbin:$PATH"
 # 暴露 nginx 默认端口
 EXPOSE 80
 
-# 切换到 nginx 用户
-USER 1000740000:0
 
 # 运行 nginx
 CMD ["nginx", "-g", "daemon off;"]
