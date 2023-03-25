@@ -21,6 +21,6 @@ jobs:
 
     - name: Build the Docker image
       run: |
-        IMAGE_TAG=bobbynie/nginx-connect:1.21.1$(date +%s)
+        IMAGE_TAG=bobbynie/nginx-connect:1.21.1_$(date +%s)
         docker build . --file Dockerfile --tag $IMAGE_TAG
         docker push $IMAGE_TAG

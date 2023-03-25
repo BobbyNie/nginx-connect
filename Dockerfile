@@ -26,7 +26,7 @@ RUN dnf install -y gcc make unzip ca-certificates curl gnupg2 pcre-devel openssl
 ENV PATH="/usr/local/nginx/sbin:$PATH"
 
 # 暴露 nginx 默认端口
-EXPOSE 80
+EXPOSE 80 443
 
 # 拷贝 nginx.conf 文件到容器中
 COPY nginx.conf /usr/local/nginx/conf/
