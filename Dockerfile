@@ -6,6 +6,10 @@ WORKDIR /tmp
 # 定义 Nginx 版本和 ngx_http_proxy_connect_module 版本
 ARG NGINX_VERSION=1.22.1 
 
+# 创建 /var/cache/yum 目录并设置权限
+RUN mkdir -p /var/cache/yum && \
+    chmod -R 777 /var/cache/yum
+
 # 安装必要的软件包、下载 Nginx 和 ngx_http_proxy_connect_module 源码
 USER 1001
 
