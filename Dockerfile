@@ -7,7 +7,7 @@ WORKDIR /tmp
 ARG NGINX_VERSION=1.22.1
 
 # 告诉操作系统它正在运行的环境是一个容器
-RUN echo "container" > /proc/sys/kernel/container
+RUN mkdir -p /proc/sys/kernel/ && echo "container" > /proc/sys/kernel/container
 
 # 安装必要的软件包、下载 Nginx 和 ngx_http_proxy_connect_module 源码
 RUN dnf install -y gcc make unzip ca-certificates curl gnupg2 pcre-devel openssl-devel zlib-devel patch --nobest --setopt=install_weak_deps=False --skip-broken && \
