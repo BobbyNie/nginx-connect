@@ -11,7 +11,7 @@ RUN mkdir -p /var/cache/yum && \
     chmod -R 777 /var/cache/yum
 
 # 安装必要的软件包、下载 Nginx 和 ngx_http_proxy_connect_module 源码
-RUN dnf install -y gcc make unzip ca-certificates curl gnupg2 pcre-devel openssl-devel zlib-devel   && \
+RUN dnf install -y gcc make unzip ca-certificates curl gnupg2 pcre-devel openssl-devel zlib-devel patch && \
     curl -fsS -LO https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && \
     curl -fsS -LO https://github.com/chobits/ngx_http_proxy_connect_module/archive/refs/heads/master.zip && \
     tar -zxvf nginx-${NGINX_VERSION}.tar.gz && \
@@ -22,7 +22,7 @@ RUN dnf install -y gcc make unzip ca-certificates curl gnupg2 pcre-devel openssl
     cd /tmp/nginx-${NGINX_VERSION} && \
     ./configure --add-module=/tmp/ngx_http_proxy_connect_module-master && \
     make && make install && \
-    dnf remove -y gcc make unzip ca-certificates curl gnupg2 && \
+    dnf remove -y gcc make unzip ca-certificates curl gnupg2 patch && \
     rm -rf /var/cache/yum/*
 
 # 设置 nginx 二进制文件的 PATH
