@@ -5,9 +5,7 @@ WORKDIR /tmp
 
 # 定义 Nginx 版本和 ngx_http_proxy_connect_module 版本
 ARG NGINX_VERSION=1.22.1
-
-# 告诉操作系统它正在运行的环境是一个容器
-RUN mkdir -p /proc/sys/kernel/ && echo "container" > /proc/sys/kernel/container
+ 
 
 # 安装必要的软件包、下载 Nginx 和 ngx_http_proxy_connect_module 源码
 RUN dnf install -y gcc make unzip ca-certificates curl gnupg2 pcre-devel openssl-devel zlib-devel patch --nobest --setopt=install_weak_deps=False --skip-broken && \
@@ -21,7 +19,7 @@ RUN dnf install -y gcc make unzip ca-certificates curl gnupg2 pcre-devel openssl
     cd /tmp/nginx-${NGINX_VERSION} && \
     ./configure --add-module=/tmp/ngx_http_proxy_connect_module-master && \
     make && make install && \
-    dnf remove -y gcc make unzip ca-certificates curl gnupg2 patch --nobest && \
+    dnf remove -y gcc make patch  --nobest && \
     rm -rf /var/cache/yum/*
 
 # 设置 nginx 二进制文件的 PATH
