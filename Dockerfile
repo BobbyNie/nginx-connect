@@ -61,16 +61,19 @@ RUN dnf install -y gcc make unzip ca-certificates curl gnupg2 pcre-devel openssl
     --with-ld-opt='-Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie' &&\
     make && make install && \
     dnf remove -y gcc make patch  --nobest && \
-    rm -rf /var/cache/yum/*
+    rm -rf /var/cache/yum/* &&\
+    rm -rf /tmp/*
 
 # 设置 nginx 二进制文件的 PATH
 ENV PATH="/usr/local/nginx/sbin:$PATH"
 
 # 暴露 nginx 默认端口
-EXPOSE 80 443
+#EXPOSE 80 443
+
+RUN useradd -r -s /bin/false nginx
 
 # 拷贝 nginx.conf 文件到容器中
-COPY nginx.conf /usr/local/nginx/conf/
+COPY nginx.conf /etc/nginx/
 
 # 运行 nginx
 CMD ["nginx", "-g", "daemon off;"]
